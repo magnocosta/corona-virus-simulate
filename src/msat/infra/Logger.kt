@@ -5,7 +5,7 @@ import java.util.*
 
 object Logger {
 
-    private val tag = "MSAT"
+    private const val tag = "MSAT"
 
     fun debug(text: String) {
         log("debug", text)
