@@ -10,6 +10,10 @@ class Ball(private val color: Color, private val maxWidth: Int, private val maxH
     companion object {
         const val WIDTH = 20
         const val HEIGHT = 20
+
+        fun area(): Int {
+            return HEIGHT * WIDTH
+        }
     }
 
     private val positionX = Random.nextInt(0, maxWidth - WIDTH)
@@ -20,6 +24,7 @@ class Ball(private val color: Color, private val maxWidth: Int, private val maxH
         setLocation(positionX, positionY)
         isOpaque = false
     }
+
 
     override fun paintComponent(graphics: Graphics) {
         super.paintComponent(graphics)
