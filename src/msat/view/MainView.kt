@@ -2,6 +2,7 @@ package msat.view
 
 import msat.infra.Logger
 import msat.model.Population
+import msat.view.animation.SimplePingPongAnimation
 import msat.view.component.Ball
 import msat.view.converter.drawAsBall
 import java.awt.BorderLayout
@@ -105,6 +106,7 @@ class MainView : JFrame("Tela Principal") {
     private fun drawPopulationOnView() {
         population.people.forEach {
             val view = it.drawAsBall(it, pnMain.width, pnMain.height)
+            SimplePingPongAnimation(view, pnMain)
             pnMain.add(view)
         }
         reDrawView()
