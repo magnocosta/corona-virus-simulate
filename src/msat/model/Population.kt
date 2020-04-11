@@ -5,11 +5,12 @@ import kotlin.math.floor
 
 class Population(size: Int) {
 
-    val people = Collections.unmodifiableList(MutableList(size) { Person() })
-    val sickPeople = people.filter { it.status == Person.StatusType.SICK }
-    val curedPeople = people.filter { it.status == Person.StatusType.CURED }
-    val notAffectedPeople = people.filter { it.status == Person.StatusType.NOT_AFFECTED }
-    val deadPeople = people.filter { it.status == Person.StatusType.DEAD }
+    val people: List<Person> = Collections.unmodifiableList(MutableList(size) { Person() })
+
+    private val sickPeople = people.filter { it.status == Person.StatusType.SICK }
+    private val curedPeople = people.filter { it.status == Person.StatusType.CURED }
+    private val notAffectedPeople = people.filter { it.status == Person.StatusType.NOT_AFFECTED }
+    private val deadPeople = people.filter { it.status == Person.StatusType.DEAD }
 
     fun sickPeopleInPercentage(): Double {
         return floor((sickPeople.size.toDouble() / people.size.toDouble()) * 100)
