@@ -13,19 +13,23 @@ class Population(size: Int) {
     private val deadPeople = people.filter { it.status == Person.StatusType.DEAD }
 
     fun sickPeopleInPercentage(): Double {
-        return floor((sickPeople.size.toDouble() / people.size.toDouble()) * 100)
+        return calculateRate(sickPeople)
     }
 
     fun curedPeopleInPercentage(): Double {
-        return floor((curedPeople.size.toDouble() / people.size.toDouble()) * 100)
-    }
-
-    fun notAffectedPeopleInPercentage(): Double {
-        return floor((notAffectedPeople.size.toDouble() / people.size.toDouble()) * 100)
+        return calculateRate(curedPeople)
     }
 
     fun deadPeopleInPercentage(): Double {
-        return floor((deadPeople.size.toDouble() / people.size.toDouble()) * 100)
+        return calculateRate(deadPeople)
+    }
+
+    fun notAffectedPeopleInPercentage(): Double {
+        return calculateRate(notAffectedPeople)
+    }
+
+    private fun calculateRate(peopleToConsiderate: List<Person>): Double {
+        return floor((peopleToConsiderate.size.toDouble() / people.size.toDouble()) * 100)
     }
 
     override fun toString(): String {
