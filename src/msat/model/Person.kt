@@ -9,7 +9,7 @@ class Person {
         SICK, CURED, DEAD, NOT_AFFECTED
     }
 
-    private val name = "Magno"
+    private val name = "Person #${Random.nextInt()}"
     private val birthday = Calendar.getInstance()
 
     val status = StatusType.values()[Random.nextInt(0, StatusType.values().size)]

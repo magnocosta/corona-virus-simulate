@@ -34,7 +34,7 @@ class Population(size: Int) {
                 "sick: ${sickPeople.size}, " +
                 "cured: ${curedPeople.size}, " +
                 "not_affected: ${notAffectedPeople.size}, " +
-                "dead: ${deadPeople.size} " +
+                "dead: ${deadPeople.size}" +
                 "}"
     }
 

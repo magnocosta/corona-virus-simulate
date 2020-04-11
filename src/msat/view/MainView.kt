@@ -124,8 +124,4 @@ class MainView : JFrame("Tela Principal") {
         pnMain.repaint()
     }
 
-    private fun area(): Int {
-        return pnMain.height * pnMain.width
-    }
-
 }
