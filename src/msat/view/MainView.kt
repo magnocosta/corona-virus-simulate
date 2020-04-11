@@ -3,7 +3,6 @@ package msat.view
 import msat.infra.Logger
 import msat.model.Population
 import msat.view.animation.SimplePingPongAnimation
-import msat.view.component.Ball
 import msat.view.converter.drawAsBall
 import java.awt.BorderLayout
 import java.awt.Color
@@ -34,7 +33,6 @@ class MainView : JFrame("Tela Principal") {
     private val bttClearSimulation = JButton("Clear Simulation")
     private val bttConfigSimulation = JButton("Config Simulation")
     private val bttResultSimulation = JButton("Result Simulation")
-
 
     /******************************************************************************************************************
      *** Others Stuffs
@@ -76,7 +74,8 @@ class MainView : JFrame("Tela Principal") {
 
         bttNewSimulation.addActionListener {
             clearPopulationOnView()
-            population = Population((area() / Ball.area()) / 4)
+//            population = Population((area() / Ball.area()) / 4)
+            population = Population(2)
             drawPopulationOnView()
         }
 
@@ -113,7 +112,10 @@ class MainView : JFrame("Tela Principal") {
     }
 
     private fun clearPopulationOnView() {
-        pnMain.components.filterIsInstance<JPanel>().forEach { pnMain.remove(it) }
+        pnMain.components.filterIsInstance<JPanel>().forEach {
+            pnMain.remove(it)
+            it.isVisible = false
+        }
         reDrawView()
     }
 
