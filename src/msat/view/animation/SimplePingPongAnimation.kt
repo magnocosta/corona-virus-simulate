@@ -2,6 +2,7 @@ package msat.view.animation
 
 import msat.infra.Logger
 import java.awt.Component
+import java.awt.Point
 import java.awt.Rectangle
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
@@ -37,20 +38,40 @@ class SimplePingPongAnimation(private val target: Component, private val contain
             return
         }
 
-        val newX = newPositionX()
-        val newY = newPositionY()
-
-        if (hasCollisionWithOtherObject(newX, newY)) {
-            logger.debug("Collision detected on $target")
-        }
-
-        target.setLocation(newX, newY)
-        target.repaint()
-
-//        logger.debug("Object moved to new position $target")
+        moveObject()
     }
 
-    private fun newPositionX(): Int {
+    private fun moveObject() {
+        val point = calculateNewPositionOfElement()
+        target.setLocation(point.x, point.y)
+        target.repaint()
+    }
+
+    private fun calculateNewPositionOfElement(): Point {
+
+        val x = newPositionX()
+        val y = newPositionY()
+
+        val point = Point(x, y)
+
+        if (hasCollisionWithOtherObject(point)) {
+            logger.debug("Collision detected on $target")
+            val x = newPositionX(true)
+            val y = newPositionY(true)
+            return Point(x, y)
+        }
+
+        return point
+    }
+
+    private fun setDirectionXByReverse() {
+        directionX = if (directionX == DirectionX.RIGHT)
+            DirectionX.LEFT
+        else
+            DirectionX.RIGHT
+    }
+
+    private fun setDirectionXByLimits() {
         if (target.x >= container.width) {
             directionX = DirectionX.LEFT
         }
@@ -58,11 +79,18 @@ class SimplePingPongAnimation(private val target: Component, private val contain
         if (target.x <= 0) {
             directionX = DirectionX.RIGHT
         }
+    }
+
+    private fun newPositionX(useReverseMode: Boolean = false): Int {
+        if (useReverseMode)
+            setDirectionXByReverse()
+        else
+            setDirectionXByLimits()
 
         return if (directionX == DirectionX.RIGHT) target.x + FRAME_RATE else target.x - FRAME_RATE
     }
 
-    private fun newPositionY(): Int {
+    private fun setDirectionYByLimits() {
         if (target.y >= container.height) {
             directionY = DirectionY.UP
         }
@@ -70,12 +98,26 @@ class SimplePingPongAnimation(private val target: Component, private val contain
         if (target.y <= 0) {
             directionY = DirectionY.DOWN
         }
+    }
+
+    private fun setDirectionYByReverse() {
+        directionY = if (directionY == DirectionY.UP)
+            DirectionY.DOWN
+        else
+            DirectionY.UP
+    }
+
+    private fun newPositionY(reverseMode: Boolean = false): Int {
+        if (reverseMode)
+            setDirectionYByReverse()
+        else
+            setDirectionYByLimits()
 
         return if (directionY == DirectionY.DOWN) target.y + FRAME_RATE else target.y - FRAME_RATE
     }
 
-    private fun hasCollisionWithOtherObject(newX: Int, newY: Int): Boolean {
-        val rectangle = Rectangle(newX, newY, target.width, target.height)
+    private fun hasCollisionWithOtherObject(point: Point): Boolean {
+        val rectangle = Rectangle(point.x, point.y, target.width, target.height)
         return objectsOnContainer.any { rectangle.intersects(it.bounds) }
     }
 
