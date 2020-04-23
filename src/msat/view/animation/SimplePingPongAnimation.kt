@@ -16,8 +16,8 @@ class SimplePingPongAnimation(private val target: Component, private val contain
         const val FRAME_RATE = 1
     }
 
-    enum class DirectionX { LEFT, RIGHT }
-    enum class DirectionY { UP, DOWN }
+    private enum class DirectionX { LEFT, RIGHT }
+    private enum class DirectionY { UP, DOWN }
 
     private val logger = Logger
     private val timer = Timer(5, this)
@@ -31,7 +31,6 @@ class SimplePingPongAnimation(private val target: Component, private val contain
     }
 
     override fun actionPerformed(event: ActionEvent?) {
-
         if (!target.isVisible) {
             logger.debug("Stopping animation, because object is not visible $target")
             timer.stop()
@@ -48,7 +47,6 @@ class SimplePingPongAnimation(private val target: Component, private val contain
     }
 
     private fun calculateNewPositionOfElement(): Point {
-
         val x = newPositionX()
         val y = newPositionY()
 

@@ -3,6 +3,7 @@ package msat.view
 import msat.infra.Logger
 import msat.model.Population
 import msat.view.animation.SimplePingPongAnimation
+import msat.view.component.Ball
 import msat.view.converter.drawAsBall
 import java.awt.BorderLayout
 import java.awt.Color
@@ -74,8 +75,8 @@ class MainView : JFrame("Tela Principal") {
 
         bttNewSimulation.addActionListener {
             clearPopulationOnView()
-//            population = Population((area() / Ball.area()) / 4)
-            population = Population(2)
+            population = Population((area() / Ball.area()) / 4)
+//            population = Population(2)
             drawPopulationOnView()
         }
 
@@ -122,6 +123,10 @@ class MainView : JFrame("Tela Principal") {
     private fun reDrawView() {
         pnMain.revalidate()
         pnMain.repaint()
+    }
+
+    private fun area(): Int {
+        return pnMain.height * pnMain.width
     }
 
 }
